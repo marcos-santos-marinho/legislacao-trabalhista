@@ -1,1 +1,103 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="h-full bg-slate-50">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>LexVanguard | Direito do Trabalho</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Merriweather:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Plus Jakarta Sans', 'sans-serif'],
+                        serif: ['Merriweather', 'serif'],
+                    },
+                }
+            }
+        }
+    </script>
+</head>
+<body class="h-full flex flex-col font-sans text-slate-800 antialiased bg-slate-100">
 
+    <!-- Top Banner Dinâmico -->
+    <div class="bg-slate-900 text-white text-[11px] py-2 px-3 text-center font-bold tracking-wide shadow-sm flex items-center justify-center space-x-2">
+        <i class="fa-solid fa-scale-balanced text-amber-400"></i>
+        <span>LexVanguard • Direito do Trabalho (2026)</span>
+    </div>
+
+    <!-- Header & Abas Coloridas Lado a Lado no Topo -->
+    <header class="bg-white border-b border-slate-200 sticky top-0 z-50 shadow-sm">
+        <div class="max-w-md mx-auto px-3 py-3 flex flex-col gap-3">
+            
+            <!-- Brand -->
+            <div class="flex items-center justify-between">
+                <div class="flex items-center space-x-2">
+                    <div class="w-9 h-9 bg-indigo-600 rounded-xl flex items-center justify-center text-white shadow-md">
+                        <i class="fa-solid fa-briefcase text-sm text-amber-300"></i>
+                    </div>
+                    <div>
+                        <span class="text-base font-extrabold text-slate-900 leading-tight block">LexVanguard</span>
+                        <span class="text-[10px] uppercase tracking-wider text-indigo-600 font-extrabold">Trabalhista Mobile</span>
+                    </div>
+                </div>
+                <span id="badge-tema" class="text-xs font-extrabold px-3 py-1 bg-indigo-50 text-indigo-700 rounded-full border border-indigo-200">Módulo Teoria</span>
+            </div>
+
+            <!-- Abas Lado a Lado com Cores Diferentes -->
+            <nav class="grid grid-cols-3 gap-2 bg-slate-100 p-1.5 rounded-2xl border border-slate-200">
+                <!-- Botão Teoria (Índigo/Azul) -->
+                <button onclick="switchTab('teoria')" id="btn-teoria" class="tab-btn py-2.5 px-1 text-xs font-extrabold rounded-xl bg-indigo-600 text-white shadow-md transition-all flex flex-col items-center justify-center gap-0.5">
+                    <i class="fa-solid fa-book-open text-sm"></i>
+                    <span>Teoria</span>
+                </button>
+                <!-- Botão Legislação (Esmeralda/Verde) -->
+                <button onclick="switchTab('legislacao')" id="btn-legislacao" class="tab-btn py-2.5 px-1 text-xs font-extrabold rounded-xl text-slate-600 hover:text-slate-900 transition-all flex flex-col items-center justify-center gap-0.5">
+                    <i class="fa-solid fa-scroll text-sm"></i>
+                    <span>Legislação</span>
+                </button>
+                <!-- Botão Questões (Laranja/Âmbar) -->
+                <button onclick="switchTab('questoes')" id="btn-questoes" class="tab-btn py-2.5 px-1 text-xs font-extrabold rounded-xl text-slate-600 hover:text-slate-900 transition-all flex flex-col items-center justify-center gap-0.5">
+                    <i class="fa-solid fa-bolt text-sm"></i>
+                    <span>Questões</span>
+                </button>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Container Focado em Leitura Móvel -->
+    <main class="flex-grow max-w-md w-full mx-auto px-4 py-5 space-y-5">
+
+        <!-- ================= ABA 1: TEORIA (Tons de Índigo / Azul Profissional) ================= -->
+        <section id="tab-teoria" class="space-y-4">
+            <div class="bg-gradient-to-r from-indigo-600 to-blue-700 rounded-2xl p-5 text-white shadow-lg space-y-2">
+                <span class="bg-amber-400 text-slate-900 font-extrabold text-[9px] uppercase px-2.5 py-0.5 rounded-full">Conteúdo Teórico</span>
+                <h1 class="text-xl font-bold font-serif leading-snug">Fundamentos e Prática Trabalhista</h1>
+                <p class="text-indigo-100 text-xs leading-relaxed">Resumos didáticos baseados nas Súmulas do TST e jurisprudência moderna.</p>
+            </div>
+
+            <div class="space-y-3">
+                <!-- Card Teoria 1 -->
+                <div class="bg-white rounded-2xl p-4 shadow-sm border border-indigo-100 space-y-3 relative overflow-hidden">
+                    <div class="absolute top-0 left-0 w-2 h-full bg-indigo-600"></div>
+                    <div class="flex items-center justify-between pl-2">
+                        <span class="text-[11px] font-extrabold text-indigo-700 bg-indigo-50 px-2.5 py-1 rounded-md">Módulo 01</span>
+                        <span class="text-[11px] text-slate-400 font-semibold"><i class="fa-regular fa-clock mr-1"></i> 10 min</span>
+                    </div>
+                    <h3 class="text-base font-bold font-serif text-slate-900 pl-2">Contrato Individual e Alterações (Art. 468 CLT)</h3>
+                    <p class="text-xs text-slate-600 pl-2 leading-relaxed">Estudo sobre o princípio da inalterabilidade contratual lesiva, cumulação de funções e desvio funcional.</p>
+                    <div class="pt-2 pl-2 border-t border-slate-100 flex justify-end">
+                        <button onclick="alert('Abrindo resumo completo do Módulo 01!')" class="w-full text-sm font-bold text-white bg-indigo-600 hover:bg-indigo-700 transition-colors py-2 rounded-xl mt-1">
+                            Ler Resumo
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Card Teoria 2 -->
+                <div class="bg-white rounded-2xl p-4 shadow-sm border border-indigo-100 space-y-3 relative overflow-hidden">
+                    <div class="absolute top
