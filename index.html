@@ -1,258 +1,530 @@
 <!DOCTYPE html>
-<html lang="pt-BR" class="h-full bg-slate-50">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>DIREITO TRABALHISTA E LEGISLAÇÃO SOCIAL</title>
-    <!-- Tailwind CSS CDN -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <!-- FontAwesome for Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Merriweather:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    fontFamily: {
-                        sans: ['Plus Jakarta Sans', 'sans-serif'],
-                        serif: ['Merriweather', 'serif'],
-                    },
-                }
-            }
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --ink: #1c2642;
+            --muted: #4d5b76;
+            --line: #dce3f0;
+            --shadow: 0 6px 18px #2636590b;
         }
-    </script>
+
+        [data-section="teoria"] {
+            --accent: #393eaa;
+            --deep: #1d285e;
+            --tint: #eef0ff;
+        }
+
+        [data-section="legislacao"] {
+            --accent: #146450;
+            --deep: #103b37;
+            --tint: #e8f7f1;
+        }
+
+        [data-section="pratica"] {
+            --accent: #633a9c;
+            --deep: #352055;
+            --tint: #f3edff;
+        }
+
+        [data-section="questoes"] {
+            --accent: #963d1e;
+            --deep: #632b16;
+            --tint: #fff1e6;
+        }
+
+        *, *::before, *::after { box-sizing: border-box; }
+        [hidden] { display: none !important; }
+        html { scroll-padding-top: 8rem; }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            background: radial-gradient(ellipse at top right, #e8eaff, transparent 34rem), #f4f6fb;
+            color: var(--ink);
+            font-family: "Plus Jakarta Sans", system-ui, sans-serif;
+            font-size: clamp(1.0625rem, 1rem + .25vw, 1.1875rem);
+            line-height: 1.6;
+        }
+
+        h1, h2, h3, p { margin: 0; }
+        h1, h2, h3 { overflow-wrap: anywhere; }
+
+        button, input { font: inherit; }
+        button { cursor: pointer; }
+
+        button:focus-visible, input:focus-visible {
+            outline: 3px solid var(--accent);
+            outline-offset: 2px;
+        }
+
+        .shell {
+            width: calc(100% - 2rem);
+            max-width: 55rem;
+            margin-inline: auto;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: .9rem;
+            padding-block: clamp(1.25rem, 4vw, 2.3rem) 1.15rem;
+        }
+
+        .brand-icon {
+            display: grid;
+            flex: 0 0 auto;
+            place-items: center;
+            width: 3rem;
+            aspect-ratio: 1;
+            border-radius: .95rem;
+            background: linear-gradient(145deg, #555ccc, #29367f);
+            box-shadow: 0 5px 12px #30387e29;
+            color: #ffe4a5;
+            font-size: 1.25rem;
+        }
+
+        .eyebrow {
+            color: #46549a;
+            font-size: .8125rem;
+            font-weight: 800;
+            letter-spacing: .12em;
+            text-transform: uppercase;
+        }
+
+        .brand h1 {
+            margin-top: .2rem;
+            font-size: clamp(1.25rem, .9rem + 2.1vw, 2rem);
+            font-weight: 800;
+            letter-spacing: -.035em;
+            line-height: 1.18;
+            text-wrap: balance;
+        }
+
+        .tabs {
+            position: sticky;
+            top: .5rem;
+            z-index: 2;
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: .375rem;
+            padding: .375rem;
+            border: 1px solid var(--line);
+            border-radius: 1.15rem;
+            background: #fff;
+            box-shadow: var(--shadow);
+        }
+
+        .tab-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: .45rem;
+            min-height: 3rem;
+            padding: .4rem .35rem;
+            border: 0;
+            border-radius: .8rem;
+            background: transparent;
+            color: var(--ink);
+            font-size: 1rem;
+            font-weight: 800;
+            line-height: 1.25;
+            overflow-wrap: anywhere;
+        }
+
+        .tab-btn i { color: var(--accent); }
+        .tab-btn:hover { background: var(--tint); }
+
+        .tab-btn[aria-pressed="true"] {
+            background: var(--accent);
+            color: #fff;
+            box-shadow: 0 3px 8px #1c264229;
+        }
+
+        .tab-btn[aria-pressed="true"] i { color: inherit; }
+
+        main { padding-block: 1.05rem 2rem; }
+
+        .section-hero {
+            position: relative;
+            isolation: isolate;
+            overflow: hidden;
+            margin-bottom: 1.05rem;
+            padding: clamp(1.3rem, 4vw, 2.35rem);
+            border-radius: 1.4rem;
+            background: radial-gradient(ellipse at 95% 5%, #ffffff20, transparent 55%),
+                        linear-gradient(125deg, var(--deep), var(--accent));
+            box-shadow: 0 10px 26px #26365924;
+            color: #fff;
+        }
+
+        .section-hero::after {
+            position: absolute;
+            z-index: -1;
+            top: -5.5rem;
+            right: -4rem;
+            width: 14rem;
+            aspect-ratio: 1;
+            border: 1px solid #ffffff42;
+            border-radius: 50%;
+            box-shadow: 0 0 0 1.25rem #ffffff10, 0 0 0 2.65rem #ffffff0a;
+            content: "";
+        }
+
+        .section-hero h2 {
+            max-width: 28ch;
+            margin-top: .65rem;
+            font: 700 clamp(1.65rem, 1.2rem + 2vw, 2.5rem)/1.22 "Merriweather", Georgia, serif;
+            letter-spacing: -.035em;
+            text-wrap: balance;
+        }
+
+        .section-hero p {
+            max-width: 56ch;
+            margin-top: .65rem;
+            color: #f1f4ff;
+        }
+
+        .section-label, .tag {
+            display: inline-flex;
+            align-items: center;
+            gap: .45rem;
+            padding: .25rem .7rem;
+            border-radius: 2rem;
+            font-size: .875rem;
+            font-weight: 800;
+            line-height: 1.4;
+        }
+
+        .section-label {
+            border: 1px solid #ffffff38;
+            background: #ffffff1a;
+        }
+
+        .section-label i { color: #ffe4a5; }
+        .tag { background: var(--tint); color: var(--accent); }
+
+        .card-list, .quiz-options { display: grid; gap: .9rem; }
+
+        .card {
+            display: flex;
+            flex-direction: column;
+            align-items: stretch;
+            gap: .85rem;
+            padding: clamp(1rem, 3vw, 1.5rem);
+            border: 1px solid var(--line);
+            border-radius: 1.2rem;
+            background: #fff;
+            box-shadow: var(--shadow);
+        }
+
+        .study-card { border-top: 3px solid var(--accent); }
+
+        .card-meta {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            gap: .35rem .65rem;
+            color: var(--muted);
+            font-size: .875rem;
+            font-weight: 700;
+        }
+
+        .card h3 {
+            font-size: clamp(1.175rem, 1.05rem + .55vw, 1.425rem);
+            line-height: 1.4;
+        }
+
+        .study-card p { color: var(--muted); }
+
+        .card-action {
+            display: flex;
+            align-items: center;
+            align-self: flex-start;
+            gap: .55rem;
+            min-height: 3rem;
+            margin-top: auto;
+            padding: .45rem .85rem;
+            border: 1px solid transparent;
+            border-radius: .75rem;
+            background: var(--tint);
+            color: var(--accent);
+            font-size: 1rem;
+            font-weight: 800;
+        }
+
+        .card-action:hover, .quiz-option:hover { border-color: var(--accent); }
+
+        .search {
+            display: flex;
+            align-items: center;
+            gap: .7rem;
+            margin-bottom: .9rem;
+            padding-inline: .9rem;
+            border: 1px solid var(--line);
+            border-radius: .95rem;
+            background: #fff;
+            box-shadow: var(--shadow);
+            color: var(--accent);
+        }
+
+        .search:focus-within { outline: 2px solid var(--accent); }
+
+        .search input {
+            flex: 1;
+            min-width: 0;
+            min-height: 3.2rem;
+            border: 0;
+            outline: none;
+            background: transparent;
+            color: var(--ink);
+        }
+
+        .search input:focus-visible { outline: none; }
+        .search input::placeholder { color: var(--muted); opacity: 1; }
+
+        .legal-text {
+            max-width: 68ch;
+            font: 400 1.0625rem/1.75 "Merriweather", Georgia, serif;
+        }
+
+        .legal-note, .quiz-feedback {
+            padding: .8rem .9rem;
+            border-inline-start: 3px solid var(--accent);
+            border-radius: .55rem;
+            background: var(--tint);
+            color: var(--deep);
+        }
+
+        .quiz-option {
+            display: grid;
+            grid-template-columns: 1.9rem minmax(0, 1fr);
+            align-items: start;
+            gap: .65rem;
+            width: 100%;
+            min-height: 3rem;
+            padding: .75rem;
+            border: 1px solid var(--line);
+            border-radius: .8rem;
+            background: #fffaf6;
+            color: var(--ink);
+            text-align: left;
+        }
+
+        .choice-letter {
+            display: grid;
+            place-items: center;
+            aspect-ratio: 1;
+            border-radius: 50%;
+            background: var(--tint);
+            color: var(--accent);
+            font-size: .875rem;
+            font-weight: 800;
+        }
+
+        .quiz-feedback strong { display: block; }
+
+        .quiz-feedback[data-result="correta"] {
+            --accent: #146450;
+            --deep: #103b37;
+            --tint: #e8f7f1;
+        }
+
+        .quiz-feedback[data-result="incorreta"] {
+            --accent: #a32d50;
+            --deep: #7c2340;
+            --tint: #fff0f4;
+        }
+
+        @media (min-width: 36rem) {
+            html { scroll-padding-top: 5rem; }
+            .tabs { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+            main { padding-top: 1.35rem; }
+        }
+
+        @media (min-width: 48rem) {
+            .study-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+        }
+    </style>
 </head>
-<body class="h-full flex flex-col font-sans text-slate-800 antialiased bg-slate-100">
-
-    <!-- Header & Abas Coloridas Lado a Lado no Topo -->
-    <header class="bg-white border-b border-slate-200 sticky top-0 z-50 shadow-sm">
-        <div class="max-w-md mx-auto px-3 py-3 flex flex-col gap-3">
-            
-            <div class="flex items-center space-x-2">
-                <div class="w-9 h-9 shrink-0 bg-indigo-600 rounded-xl flex items-center justify-center text-white shadow-md">
-                    <i class="fa-solid fa-briefcase text-sm text-amber-300"></i>
-                </div>
-                <span class="text-base font-extrabold text-slate-900 leading-tight">DIREITO TRABALHISTA E LEGISLAÇÃO SOCIAL</span>
-            </div>
-
-            <!-- Abas Lado a Lado com Cores Diferentes -->
-            <nav class="grid grid-cols-4 gap-2 bg-slate-100 p-1.5 rounded-2xl border border-slate-200">
-                <!-- Botão Teoria (Índigo/Azul) -->
-                <button onclick="switchTab('teoria')" id="btn-teoria" class="tab-btn py-2.5 px-1 text-xs font-extrabold rounded-xl bg-indigo-600 text-white shadow-md transition-all flex flex-col items-center justify-center gap-0.5">
-                    <i class="fa-solid fa-book-open text-sm"></i>
-                    <span>Teoria</span>
-                </button>
-                <!-- Botão Legislação (Esmeralda/Verde) -->
-                <button onclick="switchTab('legislacao')" id="btn-legislacao" class="tab-btn py-2.5 px-1 text-xs font-extrabold rounded-xl text-slate-600 hover:text-slate-900 transition-all flex flex-col items-center justify-center gap-0.5">
-                    <i class="fa-solid fa-scroll text-sm"></i>
-                    <span>Legislação</span>
-                </button>
-                <button onclick="switchTab('pratica')" id="btn-pratica" class="tab-btn py-2.5 px-1 text-xs font-extrabold rounded-xl text-slate-600 hover:text-slate-900 transition-all flex flex-col items-center justify-center gap-0.5">
-                    <i class="fa-solid fa-briefcase text-sm"></i>
-                    <span>Na prática</span>
-                </button>
-                <!-- Botão Questões (Laranja/Âmbar) -->
-                <button onclick="switchTab('questoes')" id="btn-questoes" class="tab-btn py-2.5 px-1 text-xs font-extrabold rounded-xl text-slate-600 hover:text-slate-900 transition-all flex flex-col items-center justify-center gap-0.5">
-                    <i class="fa-solid fa-bolt text-sm"></i>
-                    <span>Questões</span>
-                </button>
-            </nav>
+<body>
+    <header class="brand shell">
+        <span class="brand-icon" aria-hidden="true"><i class="fa-solid fa-briefcase"></i></span>
+        <div>
+            <p class="eyebrow">Guia de estudos</p>
+            <h1>DIREITO TRABALHISTA E LEGISLAÇÃO SOCIAL</h1>
         </div>
     </header>
 
-    <!-- Main Container Focado em Leitura Móvel -->
-    <main class="flex-grow max-w-md w-full mx-auto px-4 py-5 space-y-5">
+    <nav class="tabs shell" aria-label="Seções de estudo">
+        <button type="button" id="btn-teoria" class="tab-btn" data-section="teoria" aria-controls="tab-teoria" aria-pressed="true" onclick="switchTab('teoria')">
+            <i class="fa-solid fa-book-open" aria-hidden="true"></i><span>Teoria</span>
+        </button>
+        <button type="button" id="btn-legislacao" class="tab-btn" data-section="legislacao" aria-controls="tab-legislacao" aria-pressed="false" onclick="switchTab('legislacao')">
+            <i class="fa-solid fa-scroll" aria-hidden="true"></i><span>Legislação</span>
+        </button>
+        <button type="button" id="btn-pratica" class="tab-btn" data-section="pratica" aria-controls="tab-pratica" aria-pressed="false" onclick="switchTab('pratica')">
+            <i class="fa-solid fa-briefcase" aria-hidden="true"></i><span>Na prática</span>
+        </button>
+        <button type="button" id="btn-questoes" class="tab-btn" data-section="questoes" aria-controls="tab-questoes" aria-pressed="false" onclick="switchTab('questoes')">
+            <i class="fa-solid fa-bolt" aria-hidden="true"></i><span>Questões</span>
+        </button>
+    </nav>
 
-        <!-- ================= ABA 1: TEORIA (Tons de Índigo / Azul Profissional) ================= -->
-        <section id="tab-teoria" class="space-y-4">
-            <div class="bg-gradient-to-r from-indigo-600 to-blue-700 rounded-2xl p-5 text-white shadow-lg space-y-2">
-                <span class="bg-amber-400 text-slate-900 font-extrabold text-[9px] uppercase px-2.5 py-0.5 rounded-full">Conteúdo Teórico</span>
-                <h1 class="text-xl font-bold font-serif leading-snug">Fundamentos e Prática Trabalhista</h1>
-                <p class="text-indigo-100 text-xs leading-relaxed">Resumos didáticos baseados nas Súmulas do TST e jurisprudência moderna.</p>
+    <main class="shell">
+        <section id="tab-teoria" data-section="teoria">
+            <div class="section-hero">
+                <span class="section-label"><i class="fa-solid fa-book-open" aria-hidden="true"></i> Conteúdo Teórico</span>
+                <h2>Fundamentos e Prática Trabalhista</h2>
+                <p>Resumos didáticos baseados nas Súmulas do TST e jurisprudência moderna.</p>
             </div>
 
-            <div class="space-y-3">
-                <!-- Card Teoria 1 -->
-                <div class="bg-white rounded-2xl p-4 shadow-sm border border-indigo-100 space-y-3 relative overflow-hidden">
-                    <div class="absolute top-0 left-0 w-2 h-full bg-indigo-600"></div>
-                    <div class="flex items-center justify-between pl-2">
-                        <span class="text-[11px] font-extrabold text-indigo-700 bg-indigo-50 px-2.5 py-1 rounded-md">Módulo 01</span>
-                        <span class="text-[11px] text-slate-400 font-semibold"><i class="fa-regular fa-clock mr-1"></i> 10 min</span>
+            <div class="card-list study-grid">
+                <article class="card study-card">
+                    <div class="card-meta">
+                        <span class="tag">Módulo 01</span>
+                        <span><i class="fa-regular fa-clock" aria-hidden="true"></i> 10 min</span>
                     </div>
-                    <h3 class="text-base font-bold font-serif text-slate-900 pl-2">Contrato Individual e Alterações (Art. 468 CLT)</h3>
-                    <p class="text-xs text-slate-600 pl-2 leading-relaxed">Estudo sobre o princípio da inalterabilidade contratual lesiva, cumulação de funções e desvio funcional.</p>
-                    <div class="pt-2 pl-2 border-t border-slate-100 flex justify-end">
-                        <button onclick="alert('Abrindo resumo completo do Módulo 01!')" class="text-xs font-bold text-indigo-600 hover:text-indigo-800 flex items-center space-x-1 bg-indigo-50 px-3 py-1.5 rounded-xl">
-                            <span>Ler Resumo</span><i class="fa-solid fa-chevron-right text-[10px]"></i>
-                        </button>
-                    </div>
-                </div>
+                    <h3>Contrato Individual e Alterações (Art. 468 CLT)</h3>
+                    <p>Estudo sobre o princípio da inalterabilidade contratual lesiva, cumulação de funções e desvio funcional.</p>
+                    <button type="button" class="card-action" onclick="alert('Abrindo resumo completo do Módulo 01!')">
+                        Ler Resumo <i class="fa-solid fa-chevron-right" aria-hidden="true"></i>
+                    </button>
+                </article>
 
-                <!-- Card Teoria 2 -->
-                <div class="bg-white rounded-2xl p-4 shadow-sm border border-indigo-100 space-y-3 relative overflow-hidden">
-                    <div class="absolute top-0 left-0 w-2 h-full bg-blue-600"></div>
-                    <div class="flex items-center justify-between pl-2">
-                        <span class="text-[11px] font-extrabold text-blue-700 bg-blue-50 px-2.5 py-1 rounded-md">Módulo 02</span>
-                        <span class="text-[11px] text-slate-400 font-semibold"><i class="fa-regular fa-clock mr-1"></i> 12 min</span>
+                <article class="card study-card">
+                    <div class="card-meta">
+                        <span class="tag">Módulo 02</span>
+                        <span><i class="fa-regular fa-clock" aria-hidden="true"></i> 12 min</span>
                     </div>
-                    <h3 class="text-base font-bold font-serif text-slate-900 pl-2">Jornada de Trabalho e Teletrabalho</h3>
-                    <p class="text-xs text-slate-600 pl-2 leading-relaxed">Banco de horas, acordo de compensação de jornada e regras para controle de ponto em home office.</p>
-                    <div class="pt-2 pl-2 border-t border-slate-100 flex justify-end">
-                        <button onclick="alert('Abrindo resumo completo do Módulo 02!')" class="text-xs font-bold text-blue-600 hover:text-blue-800 flex items-center space-x-1 bg-blue-50 px-3 py-1.5 rounded-xl">
-                            <span>Ler Resumo</span><i class="fa-solid fa-chevron-right text-[10px]"></i>
-                        </button>
-                    </div>
-                </div>
+                    <h3>Jornada de Trabalho e Teletrabalho</h3>
+                    <p>Banco de horas, acordo de compensação de jornada e regras para controle de ponto em home office.</p>
+                    <button type="button" class="card-action" onclick="alert('Abrindo resumo completo do Módulo 02!')">
+                        Ler Resumo <i class="fa-solid fa-chevron-right" aria-hidden="true"></i>
+                    </button>
+                </article>
             </div>
         </section>
 
-        <!-- ================= ABA 2: LEGISLAÇÃO (Tons de Esmeralda / Verde Jurídico) ================= -->
-        <section id="tab-legislacao" class="hidden space-y-4">
-            <div class="bg-gradient-to-r from-emerald-600 to-teal-700 rounded-2xl p-5 text-white shadow-lg space-y-2">
-                <span class="bg-amber-300 text-slate-900 font-extrabold text-[9px] uppercase px-2.5 py-0.5 rounded-full">Legislação Consolidada</span>
-                <h1 class="text-xl font-bold font-serif leading-snug">Vade Mecum Trabalhista</h1>
-                <p class="text-emerald-100 text-xs leading-relaxed">Artigos da CLT, ADCT e Súmulas com notas doutrinárias integradas.</p>
+        <section id="tab-legislacao" data-section="legislacao" hidden>
+            <div class="section-hero">
+                <span class="section-label"><i class="fa-solid fa-scroll" aria-hidden="true"></i> Legislação Consolidada</span>
+                <h2>Vade Mecum Trabalhista</h2>
+                <p>Artigos da CLT, ADCT e Súmulas com notas doutrinárias integradas.</p>
             </div>
 
-            <div class="bg-white rounded-2xl p-4 shadow-sm border border-emerald-100 space-y-3">
-                <div class="relative">
-                    <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-3.5 text-emerald-600 text-xs"></i>
-                    <input type="text" id="vade-search" oninput="searchVade()" placeholder="Buscar art. 468, gestante, súmula..." class="w-full pl-10 pr-4 py-2.5 bg-emerald-50/50 border border-emerald-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-emerald-600 font-medium">
-                </div>
+            <div class="search">
+                <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
+                <input type="text" id="vade-search" oninput="searchVade()" aria-label="Buscar na legislação" placeholder="Buscar art. 468, gestante, súmula...">
             </div>
 
-            <div class="space-y-3" id="vade-container">
-                <!-- Artigo 1 -->
-                <div class="vade-card bg-white rounded-2xl p-4 shadow-sm border border-emerald-100 space-y-3 relative overflow-hidden" data-keywords="clt 468 alteração contratual mútua">
-                    <div class="absolute top-0 left-0 w-2 h-full bg-emerald-600"></div>
-                    <div class="flex items-center justify-between pl-2">
-                        <span class="text-[11px] font-extrabold text-emerald-700 bg-emerald-50 px-3 py-1 rounded-full">CLT • Art. 468</span>
-                        <span class="text-[10px] text-slate-400 font-bold uppercase">Contrato</span>
+            <div class="card-list" id="vade-container">
+                <article class="card vade-card" data-keywords="clt 468 alteração contratual mútua">
+                    <div class="card-meta">
+                        <span class="tag">CLT • Art. 468</span>
+                        <span>Contrato</span>
                     </div>
-                    <p class="text-xs font-serif text-slate-800 leading-relaxed pl-2">
+                    <p class="legal-text">
                         "Nos contratos individuais de trabalho só é lícita a alteração das respectivas condições por mútuo consentimento, e assim mesmo desde que não resultem, direta ou indiretamente, prejuízos ao empregado..."
                     </p>
-                    <div class="bg-emerald-50 border-l-4 border-emerald-500 p-3 text-[11px] text-emerald-900 rounded-r-xl leading-relaxed ml-2">
+                    <div class="legal-note">
                         <strong>Nota Pedagógica:</strong> Veda-se de forma absoluta a alteração unilateral lesiva ao trabalhador.
                     </div>
-                </div>
+                </article>
 
-                <!-- Artigo 2 -->
-                <div class="vade-card bg-white rounded-2xl p-4 shadow-sm border border-emerald-100 space-y-3 relative overflow-hidden" data-keywords="adct 10 gestante estabilidade">
-                    <div class="absolute top-0 left-0 w-2 h-full bg-teal-600"></div>
-                    <div class="flex items-center justify-between pl-2">
-                        <span class="text-[11px] font-extrabold text-teal-700 bg-teal-50 px-3 py-1 rounded-full">ADCT • Art. 10, II, "b"</span>
-                        <span class="text-[10px] text-slate-400 font-bold uppercase">Estabilidade</span>
+                <article class="card vade-card" data-keywords="adct 10 gestante estabilidade">
+                    <div class="card-meta">
+                        <span class="tag">ADCT • Art. 10, II, "b"</span>
+                        <span>Estabilidade</span>
                     </div>
-                    <p class="text-xs font-serif text-slate-800 leading-relaxed pl-2">
+                    <p class="legal-text">
                         "Fica vedada a dispensa arbitrária ou sem justa causa: [...] da empregada gestante, desde a confirmação da gravidez até cinco meses após o parto."
                     </p>
-                    <div class="bg-emerald-50 border-l-4 border-emerald-500 p-3 text-[11px] text-emerald-900 rounded-r-xl leading-relaxed ml-2">
+                    <div class="legal-note">
                         <strong>Nota Pedagógica:</strong> A garantia independe do conhecimento prévio do empregador (Súmula 244 TST).
                     </div>
-                </div>
+                </article>
             </div>
         </section>
 
-        <!-- ================= ABA 3: NA PRÁTICA ================= -->
-        <section id="tab-pratica" class="hidden space-y-4">
-            <div class="bg-gradient-to-r from-violet-600 to-purple-700 rounded-2xl p-5 text-white shadow-lg space-y-2">
-                <h1 class="text-xl font-bold font-serif leading-snug">Na prática</h1>
-                <p class="text-violet-100 text-xs leading-relaxed">Espaço para estudos de caso e atividades práticas.</p>
+        <section id="tab-pratica" data-section="pratica" hidden>
+            <div class="section-hero">
+                <span class="section-label"><i class="fa-solid fa-briefcase" aria-hidden="true"></i> Atividades práticas</span>
+                <h2>Na prática</h2>
+                <p>Espaço para estudos de caso e atividades práticas.</p>
             </div>
         </section>
 
-        <!-- ================= ABA 4: QUESTÕES (Tons de Âmbar / Laranja Vivaz) ================= -->
-        <section id="tab-questoes" class="hidden space-y-4">
-            <div class="bg-gradient-to-r from-amber-500 to-orange-600 rounded-2xl p-5 text-white shadow-lg space-y-2">
-                <span class="bg-slate-900 text-amber-300 font-extrabold text-[9px] uppercase px-2.5 py-0.5 rounded-full">Simulador OAB</span>
-                <h1 class="text-xl font-bold font-serif leading-snug">Questões de Múltipla Escolha</h1>
-                <p class="text-amber-100 text-xs leading-relaxed">Treine com gabarito fundamentado e feedback instantâneo de acerto.</p>
+        <section id="tab-questoes" data-section="questoes" hidden>
+            <div class="section-hero">
+                <span class="section-label"><i class="fa-solid fa-bolt" aria-hidden="true"></i> Simulador OAB</span>
+                <h2>Questões de Múltipla Escolha</h2>
+                <p>Treine com gabarito fundamentado e feedback instantâneo de acerto.</p>
             </div>
 
-            <div class="bg-white rounded-2xl p-5 shadow-sm border border-amber-100 space-y-4 relative overflow-hidden">
-                <div class="absolute top-0 left-0 w-2 h-full bg-amber-500"></div>
-                <div class="flex justify-between items-center text-[11px] font-extrabold text-slate-400 uppercase tracking-wider border-b border-amber-50 pb-2 pl-2">
-                    <span class="text-amber-600">Quiz OAB • Questão 01</span>
-                    <span class="bg-amber-50 text-amber-800 px-2 py-0.5 rounded">Direito do Trabalho</span>
+            <article class="card">
+                <div class="card-meta">
+                    <span class="tag">Quiz OAB • Questão 01</span>
+                    <span>Direito do Trabalho</span>
                 </div>
 
-                <h3 class="text-sm font-serif font-bold text-slate-900 leading-relaxed pl-2">
+                <h3>
                     A estabilidade provisória da gestante, prevista no art. 10, II, "b", do ADCT, autoriza a reintegração ou indenização substitutiva quando a concepção ocorre durante o contrato de trabalho por prazo determinado (experiência)?
                 </h3>
 
-                <div class="space-y-2.5 pl-2" id="quiz-options">
-                    <button onclick="answerQuiz(true)" class="quiz-option w-full text-left p-3.5 text-xs font-semibold rounded-xl border border-amber-200 hover:bg-amber-50 hover:border-amber-400 transition-all flex items-start space-x-2.5">
-                        <span class="w-5 h-5 rounded-full bg-amber-100 text-amber-800 flex items-center justify-center flex-shrink-0 text-[10px] font-bold">A</span>
+                <div class="quiz-options" id="quiz-options">
+                    <button type="button" class="quiz-option" onclick="answerQuiz(true)">
+                        <span class="choice-letter">A</span>
                         <span>Sim, é garantida a estabilidade provisória inclusive nos contratos por prazo determinado, como o de experiência.</span>
                     </button>
-                    <button onclick="answerQuiz(false)" class="quiz-option w-full text-left p-3.5 text-xs font-semibold rounded-xl border border-amber-200 hover:bg-amber-50 hover:border-amber-400 transition-all flex items-start space-x-2.5">
-                        <span class="w-5 h-5 rounded-full bg-amber-100 text-amber-800 flex items-center justify-center flex-shrink-0 text-[10px] font-bold">B</span>
+                    <button type="button" class="quiz-option" onclick="answerQuiz(false)">
+                        <span class="choice-letter">B</span>
                         <span>Não, os contratos por prazo determinado excluem por completo qualquer estabilidade provisória.</span>
                     </button>
                 </div>
 
-                <div id="quiz-feedback" class="hidden p-3.5 rounded-xl text-xs font-medium leading-relaxed ml-2"></div>
-            </div>
+                <div id="quiz-feedback" class="quiz-feedback" role="status" hidden></div>
+            </article>
         </section>
-
     </main>
 
-    <!-- Footer Mobile -->
-    <footer class="bg-white border-t border-slate-200 py-4 text-center text-[11px] text-slate-400 mt-auto">
-        <p>© 2026 LexVanguard • Ensino Jurídico Portátil</p>
-    </footer>
-
-    <!-- Scripts de Interação & Mudança de Cores -->
     <script>
         function switchTab(tabName) {
-            // Esconde todas as abas
-            ['teoria', 'legislacao', 'pratica', 'questoes'].forEach(t => {
-                document.getElementById('tab-' + t).classList.add('hidden');
-                const btn = document.getElementById('btn-' + t);
-                btn.className = "tab-btn py-2.5 px-1 text-xs font-extrabold rounded-xl text-slate-600 hover:text-slate-900 transition-all flex flex-col items-center justify-center gap-0.5";
+            const header = document.querySelector('.brand');
+            const wasScrolled = window.scrollY > header.offsetHeight;
+            document.querySelectorAll('.tab-btn').forEach(button => {
+                const isActive = button.dataset.section === tabName;
+                button.setAttribute('aria-pressed', isActive);
+                document.getElementById(button.getAttribute('aria-controls')).hidden = !isActive;
             });
 
-            // Mostra a aba selecionada
-            document.getElementById('tab-' + tabName).classList.remove('hidden');
-            const activeBtn = document.getElementById('btn-' + tabName);
-
-            // Atribui cores dinâmicas correspondentes à aba ativa
-            if (tabName === 'teoria') {
-                activeBtn.className = "tab-btn py-2.5 px-1 text-xs font-extrabold rounded-xl bg-indigo-600 text-white shadow-md transition-all flex flex-col items-center justify-center gap-0.5";
-            } else if (tabName === 'legislacao') {
-                activeBtn.className = "tab-btn py-2.5 px-1 text-xs font-extrabold rounded-xl bg-emerald-600 text-white shadow-md transition-all flex flex-col items-center justify-center gap-0.5";
-            } else if (tabName === 'pratica') {
-                activeBtn.className = "tab-btn py-2.5 px-1 text-xs font-extrabold rounded-xl bg-violet-600 text-white shadow-md transition-all flex flex-col items-center justify-center gap-0.5";
-            } else if (tabName === 'questoes') {
-                activeBtn.className = "tab-btn py-2.5 px-1 text-xs font-extrabold rounded-xl bg-amber-500 text-white shadow-md transition-all flex flex-col items-center justify-center gap-0.5";
-            }
+            if (wasScrolled) window.scrollTo(0, header.offsetHeight);
         }
 
         function searchVade() {
-            const query = document.getElementById('vade-search').value.toLowerCase();
-            const cards = document.querySelectorAll('.vade-card');
-            cards.forEach(card => {
+            const query = document.getElementById('vade-search').value.trim().toLowerCase();
+            document.querySelectorAll('.vade-card').forEach(card => {
                 const keywords = card.dataset.keywords.toLowerCase();
-                const text = card.innerText.toLowerCase();
-                if (keywords.includes(query) || text.includes(query) || query === '') {
-                    card.style.display = 'block';
-                } else {
-                    card.style.display = 'none';
-                }
+                const text = card.textContent.toLowerCase();
+                card.hidden = !keywords.includes(query) && !text.includes(query);
             });
         }
 
         function answerQuiz(isCorrect) {
             const feedback = document.getElementById('quiz-feedback');
-            feedback.classList.remove('hidden');
+            feedback.hidden = false;
             if (isCorrect) {
-                feedback.innerHTML = '<strong class="text-emerald-700 font-bold block mb-1">✓ Resposta Correta!</strong> Conforme a Súmula 244, item III, do TST, a empregada gestante tem direito à estabilidade provisória mesmo na hipótese de contrato de experiência.';
-                feedback.className = 'p-3.5 rounded-xl text-xs font-medium bg-emerald-50 text-emerald-900 border border-emerald-200 ml-2';
+                feedback.dataset.result = 'correta';
+                feedback.innerHTML = '<strong>✓ Resposta Correta!</strong> Conforme a Súmula 244, item III, do TST, a empregada gestante tem direito à estabilidade provisória mesmo na hipótese de contrato de experiência.';
             } else {
-                feedback.innerHTML = '<strong class="text-rose-700 font-bold block mb-1">✕ Incorreto.</strong> A jurisprudência pacificada do TST (Súmula 244, III) determina que o contrato de experiência não afasta a estabilidade da gestante.';
-                feedback.className = 'p-3.5 rounded-xl text-xs font-medium bg-rose-50 text-rose-900 border border-rose-200 ml-2';
+                feedback.dataset.result = 'incorreta';
+                feedback.innerHTML = '<strong>✕ Incorreto.</strong> A jurisprudência pacificada do TST (Súmula 244, III) determina que o contrato de experiência não afasta a estabilidade da gestante.';
             }
         }
     </script>
